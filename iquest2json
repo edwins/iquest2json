@@ -1,0 +1,30 @@
+#!/bin/bash
+
+if [ $# -gt 0 ]; then
+	echo "This script works by reading from stdin and reformats iquest output into json format"
+	echo -e "\nusage: iquest \"...\" \| $0\n"
+	exit
+fi
+
+echo "{"
+echo "  \"results\": ["
+echo "    {"
+
+# read the first line
+read line
+replaced_line=$(echo $line | sed 's/ = /": "/')
+echo -n "      \"$replaced_line\""
+
+while read line; do
+	echo $line |grep -q '^-'
+        if [ $? = 0 ]; then
+		echo -ne "\n    }"
+ 	else
+		echo ","
+		replaced_line=$(echo $line | sed 's/ = /": "/')
+		echo -n "      \"$replaced_line\""
+	fi
+done
+
+echo -e "\n  ]"
+echo "}"
