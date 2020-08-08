@@ -8,7 +8,7 @@ To use:
 
 Example: 
 
-    iquest "select count(DATA_ID) where COLL_NAME like '/tempZone/home/rods%'" | ./iquest2json
+    # iquest "select count(DATA_ID) where COLL_NAME like '/tempZone/home/rods%'" | ./iquest2json
     {
       "results": [
         {
